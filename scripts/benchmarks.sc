@@ -24,8 +24,8 @@ suite.languages.foreach { language =>
                 "-f", 1.toString,
                 "-rff", resultsPath.toString,
                 name,
-                "-jvmArgs=\"-DtestSet=" + testSetArgs.mkString(" ") + "\""
-            ) ++ params.toSeq.flatMap {
+                "-jvmArgs=-Xbatch -XX:-TieredCompilation -XX:CICompilerCount=1 \"-DtestSet=" + testSetArgs.mkString(" ") + "\""
+                ) ++ params.toSeq.flatMap {
                 case (param, value) => Seq("-p", s"$param=$value")
             }
         )(benchmarksMvnDir))
